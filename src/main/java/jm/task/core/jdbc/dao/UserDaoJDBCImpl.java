@@ -15,6 +15,7 @@ public class UserDaoJDBCImpl implements UserDao {
     public UserDaoJDBCImpl() {
     }
 
+    UserDaoJDBCImpl userDaoJDBC = new UserDaoJDBCImpl();
 
     /**
      * Создание таблицы:
@@ -192,25 +193,20 @@ public class UserDaoJDBCImpl implements UserDao {
 
     /**
      * Очистка таблицы:
-     * 1. Переменная для SQL запроса.
-     * 2. В блоке try  создается объект Connection с помощью метода open() который находится в моем классе ConnectionManager.
-     * Этот ресурс будет автоматически закрыт после завершения блока try.
-     * 3. Создается объект Statement с помощью метода createStatement() у объекта connection.
-     * 4. Выполнение SQL запроса.
-     * 5. Вывод в консоль сообщения "Все данные из таблицы users удалены"
-     * 6. Обработка возможного исключения. (ошибка в SQL запросе, проблемы с соединением)
+     * 1. Вызов метода удаления таблицы, а если таблица удалена, значит и записей в ней нет.
+     * 2. Вызов метода создания таблицы, т.к. метод не предпологает удаление самой таблицы.
+     * 3. Вывод в консоль сообщения "Все данные из таблицы users удалены"
+     * 4. Пробрасываем исключение, говоря о том, что вызванный код может выбросить исключение, и в этом случае перекладываем отвественность на вызванный код.
+     * А в наших методах по удалению и созданию таблицы исключения имеют логику обработки.
+     *
+     * Не понял зачем так, отдельный метод по очистке таблицы от записей, должен использовать меньше ресурсов, в сравнении с вызовом двух методов,
+     * которые будут создавать и закрывать подключения два раза. Плюс не понимаю как поступить с принтами которые в этих методах выводятся в консоль,
+     * получается они несут другую логику, нежели должен предоставлять метод по очистке таблицы от записей.
      */
-    public void cleanUsersTable() {
-        String delete = """
-                   DELETE FROM users;
-                """;
-        try (Connection connection = ConnectionManager.open();
-             var statement = connection.createStatement()) {
-            statement.execute(delete);
-            System.out.println("Все данные из таблицы users удалены");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+    public void cleanUsersTable() throws SQLException {
+        userDaoJDBC.dropUsersTable();
+        userDaoJDBC.createUsersTable();
+//        System.out.println("Все данные из таблицы users удалены");
     }
 
 
