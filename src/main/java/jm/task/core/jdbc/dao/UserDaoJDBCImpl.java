@@ -15,7 +15,7 @@ public class UserDaoJDBCImpl implements UserDao {
     public UserDaoJDBCImpl() {
     }
 
-    UserDaoJDBCImpl userDaoJDBC = new UserDaoJDBCImpl();
+
 
     /**
      * Создание таблицы:
@@ -31,7 +31,7 @@ public class UserDaoJDBCImpl implements UserDao {
         String create = """
                 CREATE TABLE IF NOT EXISTS users (
                  id SERIAL PRIMARY KEY,
-                                name VARCHAR(50) NOT NULL, 
+                                name VARCHAR(50) NOT NULL,
                                 lastName VARCHAR(50) NOT NULL,
                                 age INT
                             );
@@ -56,7 +56,7 @@ public class UserDaoJDBCImpl implements UserDao {
      * 4. Выполнение SQL запроса.
      * 5. Обработка возможного исключения. (ошибка в SQL запросе, проблемы с соединением)
      */
-    public void dropUsersTable() {
+    public void dropUsersTable(){
         String drop = """
                 DROP TABLE IF EXISTS users;
                 """;
@@ -203,10 +203,10 @@ public class UserDaoJDBCImpl implements UserDao {
      * которые будут создавать и закрывать подключения два раза. Плюс не понимаю как поступить с принтами которые в этих методах выводятся в консоль,
      * получается они несут другую логику, нежели должен предоставлять метод по очистке таблицы от записей.
      */
-    public void cleanUsersTable() throws SQLException {
-        userDaoJDBC.dropUsersTable();
-        userDaoJDBC.createUsersTable();
-//        System.out.println("Все данные из таблицы users удалены");
+    public void cleanUsersTable() {
+       dropUsersTable();
+       createUsersTable();
+////        System.out.println("Все данные из таблицы users удалены");
     }
 
 
