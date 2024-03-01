@@ -8,6 +8,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="TaskJDBC" />
         <module name="PredprojectTask1" />
+        <module name="PredprojectTaskJDBC" />
       </profile>
     </annotationProcessing>
   </component>
