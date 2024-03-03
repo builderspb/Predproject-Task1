@@ -1,5 +1,9 @@
 package jm.task.core.jdbc.util;
 
+import jm.task.core.jdbc.model.User;
+
+import org.hibernate.cfg.Configuration;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
@@ -12,7 +16,8 @@ public final class PropertiesUtil {
 
     // статический блок инициализации
     static {
-        loadProperties();
+
+        loadPropertiesJDBC();
     }
 
     // приватный конструктор
@@ -23,13 +28,16 @@ public final class PropertiesUtil {
         return PROPERTIES.getProperty(key);
     }
 
-    // методод считывает application.properties файл
-    private static void loadProperties() {
+    // метод считывает application.properties файл
+    private static void loadPropertiesJDBC() {
         try (InputStream Inputstream = PropertiesUtil.class.getClassLoader().getResourceAsStream("application.properties")) {
             PROPERTIES.load(Inputstream);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
+
+    // метод считывает конфигурацию из файла hibernate.properties который находится в папке resoursers
+
 }
 

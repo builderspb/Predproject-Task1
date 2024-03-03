@@ -6,7 +6,7 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="TaskJDBC" />
+        <module name="PredprojectTaskJDBC+Hibernate" />
         <module name="PredprojectTask1" />
         <module name="PredprojectTaskJDBC" />
       </profile>

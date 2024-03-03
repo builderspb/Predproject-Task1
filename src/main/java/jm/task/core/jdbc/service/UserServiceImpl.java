@@ -14,25 +14,42 @@ public class UserServiceImpl implements UserService {
         this.userDao = userDao;
     }
 
+
+
     public void createUsersTable() throws SQLException {
         userDao.createUsersTable();
+        System.out.println("Таблица Users создана");
     }
 
     public void dropUsersTable() {
         userDao.dropUsersTable();
+        System.out.println("Таблица Users удалена");
     }
 
     public void saveUser(String name, String lastName, byte age) {
+        if (name == null || lastName == null || name.isEmpty() || lastName.isEmpty()) {
+            System.out.println("Имя и фамилия, обязательные поля");
+            return;
+        }
         userDao.saveUser(name, lastName, age);
-
+        System.out.println("User с именем " + name + " добавлен в базу данных");
     }
 
     public void removeUserById(long id) {
         userDao.removeUserById(id);
+        System.out.println("Пользователь с id № " + id + " удален из таблицы Users");
     }
 
     public List<User> getAllUsers() {
-        return userDao.getAllUsers();
+        List<User> userList = userDao.getAllUsers();
+        if (userList.isEmpty()) {
+            System.out.println("Список пользователей пуст");
+        }else {
+            for (User user : userList) {
+                System.out.println(user);
+            }
+        }
+        return userList;
     }
 
     public void cleanUsersTable() throws SQLException {

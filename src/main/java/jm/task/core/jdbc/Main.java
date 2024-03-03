@@ -1,5 +1,6 @@
 package jm.task.core.jdbc;
 
+import jm.task.core.jdbc.dao.UserDaoHibernateImpl;
 import jm.task.core.jdbc.dao.UserDaoJDBCImpl;
 import jm.task.core.jdbc.service.UserService;
 import jm.task.core.jdbc.service.UserServiceImpl;
@@ -9,7 +10,7 @@ import java.sql.SQLException;
 // реализуйте алгоритм здесь
 public class Main {
     public static void main(String[] args) throws SQLException {
-        UserDaoJDBCImpl userDao = new UserDaoJDBCImpl();
+        UserDaoHibernateImpl userDao = new UserDaoHibernateImpl();
         UserService userService = new UserServiceImpl(userDao);
 
         userService.createUsersTable();
