@@ -29,7 +29,7 @@ public class UserDaoJDBCImpl implements UserDao {
      */
     public void createUsersTable() {
         String create = """
-                CREATE TABLE IF NOT EXISTS users (
+                CREATE TABLE IF NOT EXISTS postgres_new.users (
                  id SERIAL PRIMARY KEY,
                                 name VARCHAR(50) NOT NULL,
                                 lastName VARCHAR(50) NOT NULL,
@@ -58,7 +58,7 @@ public class UserDaoJDBCImpl implements UserDao {
      */
     public void dropUsersTable(){
         String drop = """
-                DROP TABLE IF EXISTS users;
+                DROP TABLE IF EXISTS postgres_new.users;
                 """;
 
         try (Connection connection = ConnectionManager.open();
@@ -93,7 +93,7 @@ public class UserDaoJDBCImpl implements UserDao {
             return;
         }
         String insert = """
-                INSERT INTO users (name, lastname, age)
+                INSERT INTO postgres_new.users (name, lastname, age)
                 VALUES (?,?,?);
                 """;
 
@@ -125,7 +125,7 @@ public class UserDaoJDBCImpl implements UserDao {
      */
     public void removeUserById(long id) {
         String delete = """
-                   DELETE FROM users
+                   DELETE FROM postgres_new.users
                    WHERE id = (?);
                 """;
 
@@ -160,7 +160,7 @@ public class UserDaoJDBCImpl implements UserDao {
      */
     public List<User> getAllUsers() {
         String select = """
-                SELECT * FROM users;
+                SELECT * FROM postgres_new.users;
                 """;
 
         List<User> userList = new ArrayList<>();
