@@ -1,24 +1,24 @@
 package jm.task.core.jdbc.model;
 
 
-
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
-@Table (name = "Users")
+@Table(name = "Users")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column (name = "id")
+    @Column(name = "id")
     private Long id;
 
-    @Column (name = "name")
+    @Column(name = "name")
     private String name;
 
-    @Column (name = "lastName")
+    @Column(name = "lastName")
     private String lastName;
 
-    @Column (name = "age")
+    @Column(name = "age")
     private Byte age;
 
     public User() {
@@ -35,6 +35,24 @@ public class User {
     public String toString() {
         return "name= " + name + "  " + "lastName= " + lastName + "  " + "age= " + age;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+        User user = (User) o;
+        return Objects.equals(name, user.name) &&
+                Objects.equals(lastName, user.lastName) &&
+                Objects.equals(age, user.age);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, lastName, age);
+    }
+
 
     public Long getId() {
         return id;
